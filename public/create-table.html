@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Tabla</title>
+</head>
+<body>
+  <h1>Crear Nueva Tabla</h1>
+  <form id="createTableForm">
+    <label for="tableName">Nombre de la tabla:</label>
+    <input type="text" id="tableName" name="tableName" required>
+    <br><br>
+
+    <h3>Columnas:</h3>
+    <div id="columnsContainer">
+      <!-- Aquí se agregarán las columnas dinámicamente -->
+    </div>
+    <button type="button" onclick="addColumn()">Agregar Columna</button>
+    <br><br>
+
+    <button type="submit">Crear Tabla</button>
+  </form>
+
+  <script>
+    // Función para agregar campos de entrada para una nueva columna
+    function addColumn() {
+      const container = document.getElementById('columnsContainer');
+      const columnIndex = container.children.length / 5 + 1;
+
+      container.innerHTML += `
+        <label>Nombre de la columna:</label>
+        <input type="text" name="columnName${columnIndex}" required>
+        <label>Tipo:</label>
+        <select name="columnType${columnIndex}" required>
+          <option value="TEXT">TEXT</option>
+          <option value="INTEGER">INTEGER</option>
+          <option value="REAL">REAL</option>
+          <option value="BLOB">BLOB</option>
+        </select>
+        <label>Ancho:</label>
+        <input type="number" name="columnWidth${columnIndex}" required>
+        <label>Valor por defecto:</label>
+        <input type="text" name="columnDefault${columnIndex}">
+        <br><br>
+      `;
+    }
+
+    // Manejo del formulario
+    document.getElementById('createTableForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData.entries());
+
+      // Enviar datos al servidor
+      const response = await fetch('/api/create-table', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      alert(result.message);
+    });
+  </script>
+</body>
+</html>

@@ -4,7 +4,7 @@ const { open } = require('sqlite');
 require('dotenv').config();
 
 async function testMySQLConnection() {
-  //try {
+  try {
     // Log connection parameters
     // console.log('Attempting connection with:', {
     //   host: 'containers-us-west-17.railway.app',
@@ -20,35 +20,35 @@ async function testMySQLConnection() {
       database: process.env.MYSQL_DATABASE,
       port: process.env.MYSQLPORT,
       user: process.env.MYSQLUSER,
-      password:process.env.MYSQL_ROOT_PASSWORD
+      
     });
     
 
-  //   const connection = await mysql.createConnection({
-  //     host: 'containers-us-west-17.railway.app',
-  //     user: process.env.MYSQLUSER,
-  //     password: process.env.MYSQLPASSWORD,
-  //     database: process.env.MYSQL_DATABASE,
-  //     port: process.env.MYSQLPORT
-  //   });
+    const connection = await mysql.createConnection({
+      host: process.env.MYSQLHOST,
+      user: process.env.MYSQLUSER,
+      password: process.env.MYSQLPASSWORD,
+      database: process.env.MYSQL_DATABASE,
+      port: process.env.MYSQLPORT
+    });
 
   //   // Test database connection
-  //   const [rows] = await connection.execute('SELECT 1');
-  //   console.log('Connection successful!');
+    const [rows] = await connection.execute('SELECT 1');
+    console.log('Connection successful!');
     
   //   // Verify database details
-  //   const [dbInfo] = await connection.execute('SELECT DATABASE() as db');
-  //   const [userInfo] = await connection.execute('SELECT USER() as user');
-  //   const [portInfo] = await connection.execute('SELECT @@port as port');
+    const [dbInfo] = await connection.execute('SELECT DATABASE() as db');
+    const [userInfo] = await connection.execute('SELECT USER() as user');
+    const [portInfo] = await connection.execute('SELECT @@port as port');
 
-  //   console.log('Connected Database:', dbInfo[0].db);
-  //   console.log('Connected User:', userInfo[0].user);
-  //   console.log('Connected Port:', portInfo[0].port);
+    console.log('Connected Database:', dbInfo[0].db);
+    console.log('Connected User:', userInfo[0].user);
+    console.log('Connected Port:', portInfo[0].port);
 
-  //   await connection.end();
-  //} catch (error) {
-  //   console.error('Connection error with MYSQL:', error);
-  // }
+    await connection.end();
+  } catch (error) {
+    console.error('Connection error with MYSQL:', error);
+  }
 }
 
 async function testSQLiteConnection() {
@@ -70,7 +70,7 @@ async function testSQLiteConnection() {
 async function main() {
   console.log('Testing database connections...');
   await testMySQLConnection();
-  //await testSQLiteConnection();
+  await testSQLiteConnection();
 }
 
 main();

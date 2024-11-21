@@ -5,13 +5,19 @@ const { open } = require('sqlite');
 async function testMySQLConnection() {
   try {
     // Log connection parameters
+    // console.log('Attempting connection with:', {
+    //   host: 'containers-us-west-17.railway.app',
+    //   host: process.env.MYSQLUSER,
+    //   user: process.env.MYSQLUSER,
+    //   database: process.env.MYSQL_DATABASE,
+    //   port: process.env.MYSQLPORT
+    // });
+
+        // Log connection parameters
     console.log('Attempting connection with:', {
-      host: 'containers-us-west-17.railway.app',
-      host: process.env.MYSQLUSER,
-      user: process.env.MYSQLUSER,
-      database: process.env.MYSQL_DATABASE,
-      port: process.env.MYSQLPORT
+      host: process.env.MYSQLHOST,
     });
+    
 
     const connection = await mysql.createConnection({
       host: 'containers-us-west-17.railway.app',

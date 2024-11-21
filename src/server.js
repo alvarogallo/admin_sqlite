@@ -6,14 +6,15 @@ async function testMySQLConnection() {
   try {
     // Log connection parameters
     console.log('Attempting connection with:', {
-      host: process.env.MYSQLHOST,
+      host: 'containers-us-west-17.railway.app',
+      host: process.env.MYSQLUSER,
       user: process.env.MYSQLUSER,
       database: process.env.MYSQL_DATABASE,
       port: process.env.MYSQLPORT
     });
 
     const connection = await mysql.createConnection({
-      host: process.env.MYSQLHOST,
+      host: 'containers-us-west-17.railway.app',
       user: process.env.MYSQLUSER,
       password: process.env.MYSQLPASSWORD,
       database: process.env.MYSQL_DATABASE,

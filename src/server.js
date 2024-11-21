@@ -15,7 +15,7 @@ async function testMySQLConnection() {
 
         // Log connection parameters
     console.log('Attempting connection with:', {
-      host: process.env.MYSQLHOST,
+      mi_variable: process.env.MIVARIABLE,
     });
     
 

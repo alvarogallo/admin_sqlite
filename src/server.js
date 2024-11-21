@@ -18,6 +18,7 @@ async function testMySQLConnection() {
     console.log('Attempting connection with:', {
       mi_variable: process.env.MIVARIABLE,
       database: process.env.MYSQL_DATABASE,
+      port: process.env.MYSQLPORT
     });
     
 

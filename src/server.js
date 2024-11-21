@@ -6,14 +6,14 @@ async function testMySQLConnection() {
   try {
     // Log connection parameters
     console.log('Attempting connection with:', {
-      host: 'mysql.railway.internal',
+      host: process.env.MYSQLHOST,
       user: process.env.MYSQLUSER,
       database: process.env.MYSQL_DATABASE,
       port: process.env.MYSQLPORT
     });
 
     const connection = await mysql.createConnection({
-      host: 'mysql.railway.internal',
+      host: process.env.MYSQLHOST,
       user: process.env.MYSQLUSER,
       password: process.env.MYSQLPASSWORD,
       database: process.env.MYSQL_DATABASE,

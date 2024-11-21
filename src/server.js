@@ -1,42 +1,31 @@
 const mysql = require('mysql2/promise');
 const sqlite3 = require('sqlite3').verbose();
 const { open } = require('sqlite');
-require('dotenv').config();
 
 async function testMySQLConnection() {
   try {
-    //Log connection parameters
+    // Log connection parameters
     console.log('Attempting connection with:', {
-      host: 'containers-us-west-17.railway.app',
+      host: 'mysql.railway.internal',
       host: process.env.MYSQLUSER,
       user: process.env.MYSQLUSER,
       database: process.env.MYSQL_DATABASE,
       port: process.env.MYSQLPORT
     });
 
-    //     // Log connection parameters
-    // console.log('Attempting connection with:', {
-    //   mi_variable: process.env.MIVARIABLE,
-    //   database: process.env.MYSQL_DATABASE,
-    //   port: process.env.MYSQLPORT,
-    //   user: process.env.MYSQLUSER,
-      
-    // });
-    
-
     const connection = await mysql.createConnection({
-      host: process.env.MYSQLHOST,
+      host: 'mysql.railway.internal',
       user: process.env.MYSQLUSER,
       password: process.env.MYSQLPASSWORD,
       database: process.env.MYSQL_DATABASE,
       port: process.env.MYSQLPORT
     });
 
-  //   // Test database connection
+    // Test database connection
     const [rows] = await connection.execute('SELECT 1');
     console.log('Connection successful!');
     
-  //   // Verify database details
+    // Verify database details
     const [dbInfo] = await connection.execute('SELECT DATABASE() as db');
     const [userInfo] = await connection.execute('SELECT USER() as user');
     const [portInfo] = await connection.execute('SELECT @@port as port');

@@ -4,39 +4,20 @@ const { open } = require('sqlite');
 
 async function testMySQLConnection() {
   try {
-    // Log connection parameters
-    console.log('Attempting connection with:', {
-      host: 'mysql.railway.internal',
-      host: process.env.MYSQLUSER,
-      user: process.env.MYSQLUSER,
-      database: process.env.MYSQL_DATABASE,
-      port: process.env.MYSQLPORT
-    });
-
     const connection = await mysql.createConnection({
-      host: 'mysql.railway.internal',
+      host: process.env.MYSQLHOST,
       user: process.env.MYSQLUSER,
       password: process.env.MYSQLPASSWORD,
       database: process.env.MYSQL_DATABASE,
       port: process.env.MYSQLPORT
     });
-
-    // Test database connection
-    const [rows] = await connection.execute('SELECT 1');
-    console.log('Connection successful!');
     
-    // Verify database details
-    const [dbInfo] = await connection.execute('SELECT DATABASE() as db');
-    const [userInfo] = await connection.execute('SELECT USER() as user');
-    const [portInfo] = await connection.execute('SELECT @@port as port');
-
-    console.log('Connected Database:', dbInfo[0].db);
-    console.log('Connected User:', userInfo[0].user);
-    console.log('Connected Port:', portInfo[0].port);
-
+    // Prueba simple
+    const [rows] = await connection.execute('SELECT 1');
+    console.log('MySQL Connection successful!', rows);
     await connection.end();
   } catch (error) {
-    console.error('Connection error with MYSQL:', error);
+    console.error('MySQL Connection error:', error);
   }
 }
 
